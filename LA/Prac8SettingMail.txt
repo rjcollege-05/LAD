@@ -1,0 +1,19 @@
+﻿
+
+open rhel disc>packages>mutt-1.5.20-2....>install
+rpm -qa | grep mutt 
+//create two user
+adduser user01
+passwd
+
+adduser user02
+passwd
+
+su - user01
+mail -s Hello user02
+Hello User2 this is user01 EOT 
+//switch to root to check messages
+su - root
+mutt
+see the mail 
+press r

@@ -1,0 +1,10 @@
+﻿
+//Kinda continuation to LVM
+[root@localhost mapper]# cd /media/ (should be present in mapper #mkfs.ext4 /dev/mapper)
+ls
+cd RHEL 6.0\ x86_64\ Disc\ 1/
+cd /
+mkdir /RHEL6
+ls
+cd RHEL6
+cp -vr /media/RHEL_6.0\x86_64\ Disc\ 1/* /RHEL6/

@@ -1,0 +1,44 @@
+﻿
+
+top left<system<administration<users and groups<adduser<add 3-5 users<go to groups<add group or click on any one name<group data and users 
+
+su- root
+adduser user_name
+passwd user_name (to change password)
+vi /etc/sudoers
+//a file will open search for ##Allow root to run commands anywhere then edit
+root    ALL=(ALL)   ALL
+user_name   ALL=(ALL)  ALL
+//save and exit
+su - user_name
+sudo useradd anotheruser
+sudo passwd anotheruser (can switch to another user)
+//Administrative commands
+//switch user to root
+su- root
+useradd -c "This is another user account" -u 502 -0 -s /sbin/bash anotheruser 
+cat /etc/passwd
+
+//add new user then change password
+useradd -c "This is otheruser account" -u 502 -0 -s /sbin/bash otheruser
+chage -m 15 -M 25 -E 17/08/2023 -W 7 otheruser
+chage -l otheruser
+cat /etc/shadow
+﻿
+
+//passwords command to lock and unlock user passwords 
+passwd -anotheruser
+passwd -l anotheruser
+//change shell of user
+shsh -s /sbin/nologin anotheruser
+cat /etc/passwd
+//Groupadd commands to create as new group and gpasswd command to usermembers
+-A: Administration
+-M: Members
+groupadd friends
+gpasswd -M otheruser,anotheruser -A user_name friends
+//deleting user
+userdel anotheruser 
+cat /etc/passwd 
+//group delete groupdel friends
+cat /etc/group

@@ -1,0 +1,26 @@
+﻿
+
+fdisk -l
+fdisk /dev/sda
+m (for partition help menu)
+n
+p (p for partition 1-4)
+W
+partx -a /dev/sda
+partx -l /dev/sda
+mkfs.ext4 /dev/sda4
+mkdir /filel
+ls /
+vim /etc/fstab
+/dev/sda4    /filel   ext4     defaults  0  0 (Insert this line in file then esc and :wq)
+mount -a
+df
+df -hT (human readable format)
+umount /dev/sda4 (To REMOVE partition)
+df -hT (to check)
+rmdir /filel
+fdisk /dev/sda
+m
+d
+partx -a /dev/sda (To see all partition) df -hT
+df -hT

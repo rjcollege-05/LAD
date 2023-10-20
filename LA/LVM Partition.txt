@@ -1,0 +1,29 @@
+﻿
+//perform all this in su-root 
+fdisk /dev/sda4
+m
+n
+p(4)
+m
+p(display partition)
+t
+4
+8e
+р
+W
+partx -a /dev/sda
+pvcreate /dev/sda4 (physical volume creale) 
+pvs
+vgcreate tybscit-A /dev/sda4 (colume group create)
+vgs
+lvcreate -n user1 L +2GB tybscit-A 
+lvs
+mkfs.ext4 /dev/mapper/tybsc--A-user1 
+mkdir /user1
+ls
+mount /dev/mapper/tybscit--A-user1 /user1 
+df -h
+umount /dev/mapper//tybscit-A-user1 
+lvremove /dev/mapper/tybscit--A-user1
+y
+vgremove tybscit-A

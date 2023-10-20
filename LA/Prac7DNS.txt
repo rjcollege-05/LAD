@@ -1,0 +1,81 @@
+ifconfig
+im /etc/sysconfig/network-scripts/ifcfg-eth0
+
+﻿
+
+DEVICE="eth0"
+HWADDR="00:00:29:EC: 9C:43" NM_CONTROLLED="yes"
+ONBOOT="no"
+DNS1-192.168.191.129
+IPADDR=192.168.191.129
+PREFIX=24 DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no Name="System ethe"
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
+NETMASK=255.255.255.0
+USERCTL=no
+
+then :wq!
+
+vim /etc/hosts
+﻿
+
+127.0.0.1 ::1   localhost localhost.localdomain localhost4 localhost4.localdomain4 localhost
+                localhost.localdomain localhost6 localhost6.localdomain6
+192.168.191.129 server.tyit.com
+
+
+vim /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=server.tyit.com
+
+vim /etc/resolv.conf
+search tyit.com
+nameserver 192.168.191.129
+
+service network restart
+//in packages install all bind
+cd /media/RHEL_6.0\ x86_64\ Disc\ 1/Packages
+use cd
+rpm -qa | grep bind (to check the installation)
+
+vi/etc/named.conf
+(for settings press) 
+:se nu
+Line 11: listen-on port 53 {192.168.191.129; }
+Line 12: For commenting this line put # Sign in front of it.
+Line 17 : allow-query { any; };
+Check the last line of file and note down the last line
+
+vi /etc/named.rfc1912.zones
+Line 13: Change Zone “localhost.localdomain” IN to zone “tyit.com” IN.
+Line:15: Change file “named.localhost” to “forward.zone”.
+Line 30: change zone “1.0.0.127.in-addr.arpa” IN to zone “1.168.192.in-addr.arpa” IN
+Line 33: change file “named.loopback” to file “reverse.zone”
+
+
+cd /var/named
+ls
+cp named.localhost forward.zone
+cp named.localhost reverse.zone
+vi forward.zone
+IN SOA   server.tyit.com.   root.server.tyit.com.  (
+
+
+IN    NS   server.tyit.com.
+server  A   192.168.191.129
+
+vi reverse.zone
+IN    SOA   server.tyit.com.   root.tyit.com. (
+
+IN    NS     server.tyit.com
+IN    PTR    server.tyit.com
+
+chgrp named forward.zone
+chgrp named reverse.zone
+
+//start the dns
+service named start
+
+dig server.tyit.com
+or dig -x 192.168.1.3

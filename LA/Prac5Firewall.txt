@@ -1,0 +1,41 @@
+
+service iptables stop
+service iptables restart
+iptables -L (to check connection) 
+//accept connections by default
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT 
+iptables -P OUTPUT ACCEPT 
+//deny all connections 
+iptables -P INPUT DROP 
+iptables -P FORWARD DROP 
+iptables -P OUTPUT DROP 
+//reject all connections
+iptables -P INPUT -j REJECT
+iptables -P FORWARD -j REJECT
+iptables -P OUTPUT -j REJECT
+accept host with ip address '192.168.1.15' can change
+iptables -A INPUT -p tcp -s 192.168.1.15 --dport ssh -j ACCEPT
+//block all connections to port 22
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW, ESTABLISH -j ACCEPT 
+//allowing all ssh connection
+iptables -A INPUT -p tcp -s 192.168.1.15 --dport ssh -j ACCEPT
+//ssh for specific address
+iptables -A INPUT -p tcp -d 192.168.1.3 --sport ssh -j ACCEPT
+allowing outgoing ssh which established for incoming ssh connection request
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state NEW, ESTABLISH -j ACCEPT 
+//for incoming ping requests
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+//drop all telnet connection
+iptables -A INPUT -p tcp --dport telnet -j DROP
+//reject telnet
+iptables -A INPUT -p tcp --dport telnet -j REJECT 
+//reject all trafic accept ssh & local connection 
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp --dport ssh -j ACCEPT 
+iptables -A INPUT -j REJECT
+//drop all on a specific netowork interface
+iptables -A INPUT -i eth0 -s 192.168.0.0/24 -j DROP
+iptables -L
+//to flush all rules 
+iptables -F

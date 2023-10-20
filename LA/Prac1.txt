@@ -1,0 +1,39 @@
+﻿
+
+hostname- to know hostname
+whoami
+pwd
+date
+date 06211011
+mkdir rjcollege to make directory
+cd rjcollege to enter into it 
+cd ..
+ls -shows directory
+ls -a -shows all directory
+//make a file in rjcollege named a, ab, abc (vi a, vi ab, abc)...
+Is a shows the files in a
+ls -a* (shows only a name)
+ls a? (shows ab)
+ls a?? (shows abc)
+ls ??c (shows abc)
+cat >filename (create, view and type)
+:wq (Save and Exit)
+cp filename filename2 (copy files from one to another)|
+mv filename filename2 (move files)
+ps (used to list running processes) kill (terminate process)
+top (realtime view of running systems) man (usermanual)
+man ls
+ls -t (sort file in time)
+ls -t /etc
+find-size +100M
+﻿
+
+//Manageprocesses 
+system-config-users
+bg
+fg
+//mail
+su- root
+crontab -e
+*/5**** mail -s "Hello Root this is RJCIT user." root< 
+mail (used to show cron daemon

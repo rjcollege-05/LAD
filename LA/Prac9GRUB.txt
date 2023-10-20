@@ -1,0 +1,11 @@
+﻿
+
+go to packages>install grub-0.97-68.el6.x86_64.rpm
+vi /boot/grub/grub.conf
+in hidden menu where title Redhat wite same 6 lines with the following change title My Client Machine (RHEL6)
+//also change timeout service
+timeout=5
+increase it by 30
+timeout=30
+restart the linux environment by using "init 6"
+you can see both machines now

@@ -1,0 +1,9 @@
+﻿
+
+vi file1
+cat file1
+In file1 Harfile
+cat Hardfile
+ln -s file1 SoftFile
+cat SoftFile
+(deleting the original file deletes the data in softfile but doesn't affects the hardfile)

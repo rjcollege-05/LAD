@@ -1,0 +1,40 @@
+﻿
+
+in windows settings open more network adaptor options
+view and copy system ipv4
+now open vmware network adaptor and in properties select ipv4 and set 172.16.1....
+255.255.224.0
+172.16.1.134
+
+now on vmware and set ip address
+ifconfig (to check)
+cd /media/RHEL_6.0\ x84_64\ Disc\ 1/Packages
+Install all samba packages
+rpm -qa | grep samba (Check installation)
+smbpasswd -a root
+password:
+mkdir /data
+cd /data
+touch f1 f2 f3
+cat > test
+this is samba practical
+cd /home
+chmod 777 /data
+chcon -t samba_share_t /data
+
+vi /etc/samba/smb.conf
+﻿
+
+in [data]
+comment = data 
+; path=/home/data
+; public = yes
+; writeable = yes
+  write list = root
+  user list = root
+:wq!
+service smb restart
+service smb restart
+system>samba>firewall>disable>apply
+ping 172.16.11.3  (ip set in vmware)
+on windows ping 172.16.11.133 -t (Windows ip)
